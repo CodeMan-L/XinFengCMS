@@ -1,0 +1,56 @@
+以后写简历的时候，你的项目该如何写
+1. 项目找啥类型的
+自研型公司「公司有自己的产品」
+  + xxx家电购物APP端
+  + xxx家电购物PC端
+  + xxx家电购物小程序端
+  + CMS系统
+  + 内部OA系统
+  + 介绍类的官网
+  + 活动期间的一些H5宣传海报（宣传页）
+  + …..
+项目外包型公司「公司都是给别人开发产品」 
+  + 接触各种各样的项目
+人员外包型公司「把你派到别的公司工作（大公司）」
+  + 都是大公司的某个项目  
+
+
+
+
+
+
+
+
+==========
+第一步：基于脚手架创建项目
+第二步：修改脚手架的相关配置
++ 修改配置 vue.config.js
+   + 兼容
+   + 跨域
+   + 优化
+   + …..
++ 安装一些其它的模块   $ yarn add axios element-ui echarts blueimp-md5
++ 扩展：生产环境下，去除所有的console.log
+   $ yarn add babel-plugin-transform-remove-console -D
+   修改 babel.config.js
+
+
+
+
+
+
+相关安装：
+  axios element-ui echarts blueimp-md5
+  babel-plugin-transform-remove-console -D
+
+
+vue.config.js:修改相关配置
+
+扩展：生产环境下，去除所有的console.log
+
+babel.config.ja:生产环境下去除consloe的配置
+
+
+删除相关默认
+public-->index.html
+App.vue
