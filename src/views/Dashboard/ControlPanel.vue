@@ -1,9 +1,11 @@
 <template>
   <div class="contain">
     <div class="order">
-      <div class="order-item" v-for="(item, index) in ['今日订单数', '今日日活', '转化率']" :key="index">
-        <p>{{ item }}</p>
-        <p>1888</p>
+      <div class="order-item"
+        v-for="(item, index) in [{ name: '今日订单数', num: 1888 }, { name: '今日日活', num: 36271 }, { name: '转化率', num: '20%' }]"
+        :key="index">
+        <p>{{ item.name }}</p>
+        <p>{{ item.num }}</p>
       </div>
     </div>
     <div class="control-panel">
