@@ -1,6 +1,8 @@
 import http from "./http";
 import carousels from "./carousels";
 import dashboard from "./dashboard";
+import GoodsSetting from "./GoodsSetting";
+import ProductSetting from "./ProductSetting";
 
 //登录接口
 const adminLogin = (userName, passwordMd5) => {
@@ -28,6 +30,8 @@ const api = {
     adminLogin,
     adminProfile,
     carousels,
-    dashboard
+    dashboard,
+    GoodsSetting,
+    ProductSetting
 };
 export default api;

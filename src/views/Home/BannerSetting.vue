@@ -43,6 +43,7 @@
     <!-- 新增/修改 -->
     <el-dialog width="30%" :title="`${carouselId ? '修改' : '添加'}轮播图`" :visible="dialogVisible"
       :close-on-click-modal="false" :close-on-press-escape="false" :before-close="closeDialog">
+
       <el-form label-width="100px" :rules="rules" :model="ruleFrom" ref="fromIns">
         <el-form-item label="轮播图图片" prop="carouselUrl">
           <el-upload class="avatar-uploader" action="" accept=".jpg,.jpeg,.png,.gif" :show-file-list="false"
@@ -162,10 +163,10 @@ export default {
 
         let func = this.$api.carousels.insert,
           data = { ...this.ruleFrom };
+
         if (this.carouselId) {
           func = this.$api.carousels.update;
           data.carouselId = this.carouselId;
-          console.log(data);
         }
         let { resultCode } = await func(data)
         if (+resultCode === 200) {
