@@ -3,10 +3,10 @@
         <el-form ref="form" label-width="80px">
 
             <el-form-item label="商品分类">
-                <el-select>
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
+                <div class="block">
+                    <span class="demonstration"></span>
+                    <el-cascader v-model="value" :options="options" @change="handleChange"></el-cascader>
+                </div>
             </el-form-item>
 
             <el-form-item label="商品名称">
@@ -63,11 +63,22 @@
                     <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
             </el-form-item>
+
+            <el-form-item label="详情内容">
+                <div class="editor-container">
+
+                    <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="content">
+                    </vue-editor>
+                    <el-button type="primary">立即创建</el-button>
+                </div>
+
+            </el-form-item>
         </el-form>
     </div>
 </template>
-  
+   
 <script>
+import { VueEditor } from "vue2-editor/dist/vue2-editor.core.js";
 export default {
     name: "Add",
     data() {
@@ -75,7 +86,204 @@ export default {
             radio: 3,
             dialogImageUrl: '',
             dialogVisible: false,
-            disabled: false
+            disabled: false,
+            content: '请输入正文',
+            value: [],
+            options: [{
+                value: 'zhinan',
+                label: '指南',
+                children: [{
+                    value: 'shejiyuanze',
+                    label: '设计原则',
+                    children: [{
+                        value: 'yizhi',
+                        label: '一致'
+                    }, {
+                        value: 'fankui',
+                        label: '反馈'
+                    }, {
+                        value: 'xiaolv',
+                        label: '效率'
+                    }, {
+                        value: 'kekong',
+                        label: '可控'
+                    }]
+                }, {
+                    value: 'daohang',
+                    label: '导航',
+                    children: [{
+                        value: 'cexiangdaohang',
+                        label: '侧向导航'
+                    }, {
+                        value: 'dingbudaohang',
+                        label: '顶部导航'
+                    }]
+                }]
+            }, {
+                value: 'zujian',
+                label: '组件',
+                children: [{
+                    value: 'basic',
+                    label: 'Basic',
+                    children: [{
+                        value: 'layout',
+                        label: 'Layout 布局'
+                    }, {
+                        value: 'color',
+                        label: 'Color 色彩'
+                    }, {
+                        value: 'typography',
+                        label: 'Typography 字体'
+                    }, {
+                        value: 'icon',
+                        label: 'Icon 图标'
+                    }, {
+                        value: 'button',
+                        label: 'Button 按钮'
+                    }]
+                }, {
+                    value: 'form',
+                    label: 'Form',
+                    children: [{
+                        value: 'radio',
+                        label: 'Radio 单选框'
+                    }, {
+                        value: 'checkbox',
+                        label: 'Checkbox 多选框'
+                    }, {
+                        value: 'input',
+                        label: 'Input 输入框'
+                    }, {
+                        value: 'input-number',
+                        label: 'InputNumber 计数器'
+                    }, {
+                        value: 'select',
+                        label: 'Select 选择器'
+                    }, {
+                        value: 'cascader',
+                        label: 'Cascader 级联选择器'
+                    }, {
+                        value: 'switch',
+                        label: 'Switch 开关'
+                    }, {
+                        value: 'slider',
+                        label: 'Slider 滑块'
+                    }, {
+                        value: 'time-picker',
+                        label: 'TimePicker 时间选择器'
+                    }, {
+                        value: 'date-picker',
+                        label: 'DatePicker 日期选择器'
+                    }, {
+                        value: 'datetime-picker',
+                        label: 'DateTimePicker 日期时间选择器'
+                    }, {
+                        value: 'upload',
+                        label: 'Upload 上传'
+                    }, {
+                        value: 'rate',
+                        label: 'Rate 评分'
+                    }, {
+                        value: 'form',
+                        label: 'Form 表单'
+                    }]
+                }, {
+                    value: 'data',
+                    label: 'Data',
+                    children: [{
+                        value: 'table',
+                        label: 'Table 表格'
+                    }, {
+                        value: 'tag',
+                        label: 'Tag 标签'
+                    }, {
+                        value: 'progress',
+                        label: 'Progress 进度条'
+                    }, {
+                        value: 'tree',
+                        label: 'Tree 树形控件'
+                    }, {
+                        value: 'pagination',
+                        label: 'Pagination 分页'
+                    }, {
+                        value: 'badge',
+                        label: 'Badge 标记'
+                    }]
+                }, {
+                    value: 'notice',
+                    label: 'Notice',
+                    children: [{
+                        value: 'alert',
+                        label: 'Alert 警告'
+                    }, {
+                        value: 'loading',
+                        label: 'Loading 加载'
+                    }, {
+                        value: 'message',
+                        label: 'Message 消息提示'
+                    }, {
+                        value: 'message-box',
+                        label: 'MessageBox 弹框'
+                    }, {
+                        value: 'notification',
+                        label: 'Notification 通知'
+                    }]
+                }, {
+                    value: 'navigation',
+                    label: 'Navigation',
+                    children: [{
+                        value: 'menu',
+                        label: 'NavMenu 导航菜单'
+                    }, {
+                        value: 'tabs',
+                        label: 'Tabs 标签页'
+                    }, {
+                        value: 'breadcrumb',
+                        label: 'Breadcrumb 面包屑'
+                    }, {
+                        value: 'dropdown',
+                        label: 'Dropdown 下拉菜单'
+                    }, {
+                        value: 'steps',
+                        label: 'Steps 步骤条'
+                    }]
+                }, {
+                    value: 'others',
+                    label: 'Others',
+                    children: [{
+                        value: 'dialog',
+                        label: 'Dialog 对话框'
+                    }, {
+                        value: 'tooltip',
+                        label: 'Tooltip 文字提示'
+                    }, {
+                        value: 'popover',
+                        label: 'Popover 弹出框'
+                    }, {
+                        value: 'card',
+                        label: 'Card 卡片'
+                    }, {
+                        value: 'carousel',
+                        label: 'Carousel 走马灯'
+                    }, {
+                        value: 'collapse',
+                        label: 'Collapse 折叠面板'
+                    }]
+                }]
+            }, {
+                value: 'ziyuan',
+                label: '资源',
+                children: [{
+                    value: 'axure',
+                    label: 'Axure Components'
+                }, {
+                    value: 'sketch',
+                    label: 'Sketch Templates'
+                }, {
+                    value: 'jiaohu',
+                    label: '组件交互文档'
+                }]
+            }]
         };
     },
     methods: {
@@ -88,12 +296,30 @@ export default {
         },
         handleDownload(file) {
             console.log(file);
+        },
+        handleChange() { },
+        updateData(e) {
+            this.content = e;
+        },
+        handleImageAdded() {
+            console.log('upload image');
         }
-    }
+    },
+    components: {
+        VueEditor
+    },
+
+
 };
-</script>
+</script> 
   
 <style lang="less" scoped>
+@import "~vue2-editor/dist/vue2-editor.css";
+/* Import the Quill styles you want */
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
+
 .Add {
     position: relative;
     box-sizing: border-box;
@@ -104,12 +330,34 @@ export default {
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 
-    // :deep(.el-form-item__label) {
-    //     width: 82px !important;
-    // }
 
-    // :deep(.el-form-item__content) {
-    //     width: 80px !important;
-    // }
+    :deep(#editor) {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    :deep(.el-form-item__label) {
+        width: 82px !important;
+    }
+
+    :deep(.el-form-item__content) {
+        margin-left: 82px !important;
+    }
+
+    /deep/input {
+        width: 298px;
+        height: 38px;
+        padding: 0 15px;
+    }
+
+    /deep/.el-textarea {
+        width: 298px;
+        height: 38px;
+        box-sizing: border-box;
+    }
+
+    /deep/.el-input-number {
+        width: 298px;
+    }
 }
 </style>

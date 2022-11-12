@@ -13,8 +13,11 @@
     "core-js": "^3.8.3",
     "echarts": "^5.4.0",
     "element-ui": "^2.15.10",
+    "font-awesome": "^4.7.0",
     "vue": "^2.6.14",
+    "vue-html5-editor": "^1.1.1",
     "vue-router": "^3.5.1",
+    "vue2-editor": "^2.10.3",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
