@@ -4,8 +4,7 @@
 
             <el-form-item label="商品分类">
                 <div class="block">
-                    <span class="demonstration"></span>
-                    <el-cascader v-model="value" :options="options" @change="handleChange"></el-cascader>
+                    <el-cascader :props="props"></el-cascader>
                 </div>
             </el-form-item>
 
@@ -13,20 +12,20 @@
                 <el-input placeholder="请输入商品名称"></el-input>
             </el-form-item>
 
-            <el-form-item label="商品简介">
+            <el-form-item label="商品简介" prop="goodsIntro">
                 <el-input type="textarea" placeholder="请输入商品简介（100字）"></el-input>
             </el-form-item>
 
-            <el-form-item label="商品价格">
-                <el-input-number controls-position="right" :min="0" placeholder="请输入商品价格">
+            <el-form-item label="商品价格" prop="goodsName">
+                <el-input-number controls-position="right" :min="0" v-model="num" placeholder="请输入商品价格">
                 </el-input-number>
             </el-form-item>
-            <el-form-item label="商品售卖价">
-                <el-input-number controls-position="right" placeholder="请输入商品售价">
+            <el-form-item label="商品售卖价" prop="originalPrice">
+                <el-input-number controls-position="right" placeholder="请输入商品售价" :min="0" v-model="num2">
                 </el-input-number>
             </el-form-item>
             <el-form-item label="商品库存">
-                <el-input-number controls-position="right" :min="0" placeholder="请输入商品库存">
+                <el-input-number controls-position="right" :min="0" placeholder="请输入商品库存" v-model="num3">
                 </el-input-number>
             </el-form-item>
             <el-form-item label="商品标签">
@@ -42,7 +41,8 @@
             </el-form-item>
 
             <el-form-item label="商品主图">
-                <el-upload action="#" list-type="picture-card" :auto-upload="false">
+                <el-upload action="#" list-type="picture-card" :auto-upload="false" :limit="1"
+                    v-show="flag ? true : false">
                     <i slot="default" class="el-icon-plus"></i>
                     <div slot="file" slot-scope="{file}">
                         <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -69,7 +69,7 @@
 
                     <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="content">
                     </vue-editor>
-                    <el-button type="primary">立即创建</el-button>
+                    <el-button type="primary" @click="submit">立即创建</el-button>
                 </div>
 
             </el-form-item>
@@ -82,227 +82,66 @@ import { VueEditor } from "vue2-editor/dist/vue2-editor.core.js";
 export default {
     name: "Add",
     data() {
+        let that = this;
         return {
             radio: 3,
             dialogImageUrl: '',
             dialogVisible: false,
             disabled: false,
             content: '请输入正文',
-            value: [],
-            options: [{
-                value: 'zhinan',
-                label: '指南',
-                children: [{
-                    value: 'shejiyuanze',
-                    label: '设计原则',
-                    children: [{
-                        value: 'yizhi',
-                        label: '一致'
-                    }, {
-                        value: 'fankui',
-                        label: '反馈'
-                    }, {
-                        value: 'xiaolv',
-                        label: '效率'
-                    }, {
-                        value: 'kekong',
-                        label: '可控'
-                    }]
-                }, {
-                    value: 'daohang',
-                    label: '导航',
-                    children: [{
-                        value: 'cexiangdaohang',
-                        label: '侧向导航'
-                    }, {
-                        value: 'dingbudaohang',
-                        label: '顶部导航'
-                    }]
-                }]
-            }, {
-                value: 'zujian',
-                label: '组件',
-                children: [{
-                    value: 'basic',
-                    label: 'Basic',
-                    children: [{
-                        value: 'layout',
-                        label: 'Layout 布局'
-                    }, {
-                        value: 'color',
-                        label: 'Color 色彩'
-                    }, {
-                        value: 'typography',
-                        label: 'Typography 字体'
-                    }, {
-                        value: 'icon',
-                        label: 'Icon 图标'
-                    }, {
-                        value: 'button',
-                        label: 'Button 按钮'
-                    }]
-                }, {
-                    value: 'form',
-                    label: 'Form',
-                    children: [{
-                        value: 'radio',
-                        label: 'Radio 单选框'
-                    }, {
-                        value: 'checkbox',
-                        label: 'Checkbox 多选框'
-                    }, {
-                        value: 'input',
-                        label: 'Input 输入框'
-                    }, {
-                        value: 'input-number',
-                        label: 'InputNumber 计数器'
-                    }, {
-                        value: 'select',
-                        label: 'Select 选择器'
-                    }, {
-                        value: 'cascader',
-                        label: 'Cascader 级联选择器'
-                    }, {
-                        value: 'switch',
-                        label: 'Switch 开关'
-                    }, {
-                        value: 'slider',
-                        label: 'Slider 滑块'
-                    }, {
-                        value: 'time-picker',
-                        label: 'TimePicker 时间选择器'
-                    }, {
-                        value: 'date-picker',
-                        label: 'DatePicker 日期选择器'
-                    }, {
-                        value: 'datetime-picker',
-                        label: 'DateTimePicker 日期时间选择器'
-                    }, {
-                        value: 'upload',
-                        label: 'Upload 上传'
-                    }, {
-                        value: 'rate',
-                        label: 'Rate 评分'
-                    }, {
-                        value: 'form',
-                        label: 'Form 表单'
-                    }]
-                }, {
-                    value: 'data',
-                    label: 'Data',
-                    children: [{
-                        value: 'table',
-                        label: 'Table 表格'
-                    }, {
-                        value: 'tag',
-                        label: 'Tag 标签'
-                    }, {
-                        value: 'progress',
-                        label: 'Progress 进度条'
-                    }, {
-                        value: 'tree',
-                        label: 'Tree 树形控件'
-                    }, {
-                        value: 'pagination',
-                        label: 'Pagination 分页'
-                    }, {
-                        value: 'badge',
-                        label: 'Badge 标记'
-                    }]
-                }, {
-                    value: 'notice',
-                    label: 'Notice',
-                    children: [{
-                        value: 'alert',
-                        label: 'Alert 警告'
-                    }, {
-                        value: 'loading',
-                        label: 'Loading 加载'
-                    }, {
-                        value: 'message',
-                        label: 'Message 消息提示'
-                    }, {
-                        value: 'message-box',
-                        label: 'MessageBox 弹框'
-                    }, {
-                        value: 'notification',
-                        label: 'Notification 通知'
-                    }]
-                }, {
-                    value: 'navigation',
-                    label: 'Navigation',
-                    children: [{
-                        value: 'menu',
-                        label: 'NavMenu 导航菜单'
-                    }, {
-                        value: 'tabs',
-                        label: 'Tabs 标签页'
-                    }, {
-                        value: 'breadcrumb',
-                        label: 'Breadcrumb 面包屑'
-                    }, {
-                        value: 'dropdown',
-                        label: 'Dropdown 下拉菜单'
-                    }, {
-                        value: 'steps',
-                        label: 'Steps 步骤条'
-                    }]
-                }, {
-                    value: 'others',
-                    label: 'Others',
-                    children: [{
-                        value: 'dialog',
-                        label: 'Dialog 对话框'
-                    }, {
-                        value: 'tooltip',
-                        label: 'Tooltip 文字提示'
-                    }, {
-                        value: 'popover',
-                        label: 'Popover 弹出框'
-                    }, {
-                        value: 'card',
-                        label: 'Card 卡片'
-                    }, {
-                        value: 'carousel',
-                        label: 'Carousel 走马灯'
-                    }, {
-                        value: 'collapse',
-                        label: 'Collapse 折叠面板'
-                    }]
-                }]
-            }, {
-                value: 'ziyuan',
-                label: '资源',
-                children: [{
-                    value: 'axure',
-                    label: 'Axure Components'
-                }, {
-                    value: 'sketch',
-                    label: 'Sketch Templates'
-                }, {
-                    value: 'jiaohu',
-                    label: '组件交互文档'
-                }]
-            }]
+            flag: true,
+            num: 0,
+            num2: 0,
+            num3: 0,
+            options: [],
+            props: {
+                lazy: true,
+                async lazyLoad(node, resolve) {
+                    const { level } = node;
+                    try {
+                        let { resultCode, data } = await that.$api.dashboard.queryGoodsClassify(1, 1000, node.level + 1, node.value)
+
+                        if (+resultCode === 200) {
+                            that.options = data.list;
+                        } else {
+                            that.$message.error('null')
+                        }
+                    } catch (_) {
+                        console.log('错误：', _);
+                    }
+                    const nodes = that.options.map(item => ({
+                        value: item.categoryId,
+                        label: item.categoryName,
+                        leaf: level >= 2
+                    }));
+                    // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                    resolve(nodes);
+                }
+            },
+
         };
     },
+    async created() {
+    },
     methods: {
+        /* 上传图片相关的 */
         handleRemove(file) {
-            console.log(file);
+            this.dialogImageUrl = '';
         },
         handlePictureCardPreview(file) {
+            this.flag = false;
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
         handleDownload(file) {
-            console.log(file);
+            // console.log(file);
         },
-        handleChange() { },
-        updateData(e) {
-            this.content = e;
-        },
+
         handleImageAdded() {
-            console.log('upload image');
+            // console.log('upload image');
+        },
+        submit() {
+
         }
     },
     components: {

@@ -6,6 +6,32 @@ const queryData = (sentry_key, sentry_version) => {
     return http.post(`5737358/envelope/?sentry_key=${sentry_key}$sentry_version=${sentry_version}`)
 }
 
+
+/* 
+添加商品模块接口
+*/
+const addgoods = (data) => {
+    return http.post("/goods", data)
+}
+//获取商品分类
+const queryGoodsClassify = (
+    pageNumber = 1,
+    pageSize = 1000,
+    categoryLevel = 1,
+    parentId = 0) => {
+    return http.get('/categories', {
+        params: {
+            pageNumber,
+            pageSize,
+            categoryLevel,
+            parentId
+        }
+    })
+}
+
+
 export default {
-    queryData
+    queryData,
+    addgoods,
+    queryGoodsClassify
 }

@@ -107,7 +107,7 @@ export default {
   }
 
   /deep/.assideScroll {
-    height: 100%;
+    height: 96%;
   }
 }
 </style>
