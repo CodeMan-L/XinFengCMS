@@ -86,6 +86,7 @@ export default {
       currentPage: 1,
       configType: 1,
       selection: [],
+      goodsId: null,
       configId: null,
       updateTime: null,
       //Dialog表单相关的
@@ -98,10 +99,10 @@ export default {
         configRank: ""
       },
       rules: {
-        configName: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        redirectUrl: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        goodsId: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        configRank: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
+        configName: [{ required: true, message: '商品名称不能为空', trigger: 'blur' }],
+        redirectUrl: [{ required: true, message: '跳转链接不能为空', trigger: 'blur' }],
+        goodsId: [{ required: true, message: '商品编号不能为空', trigger: 'blur' }],
+        configRank: [{ required: true, message: '排序值不能为空', trigger: 'blur' }],
       }
     }
   },
@@ -154,7 +155,7 @@ export default {
       }
       try {
         let { resultCode } = await this.$api.GoodsSetting.removeGood(ids);
-       
+
         if (+resultCode === 200) {
           this.$message.success('恭喜您，删除成功！');
           this.init();
@@ -173,6 +174,7 @@ export default {
         if (+resultCode === 200) {
           this.ruleFrom = data;
           this.configId = data.configId;
+          this.goodsId = data.goodsId;
           this.updateTime = data.updateTime;
           return;
         }
@@ -207,7 +209,7 @@ export default {
 
 
         //修改
-        if (data.goodsId) {
+        if (this.goodsId) {
           fun = this.$api.GoodsSetting.updataGood;
           data.configId = this.configId;
           data.createTime = this.updateTime;
