@@ -43,7 +43,7 @@
     </div>
 
     <!-- 修改弹框 -->
-    <el-dialog :title="`${ruleFrom.goodsId ? '修改' : '添加'}商品`" :visible.sync="dialogVisible" width="30%"
+    <el-dialog :title="`${ruleFrom.configId ? '修改' : '添加'}商品`" :visible.sync="dialogVisible" width="30%"
       :close-on-click-modal="false" :close-on-press-escape="false" :before-close="handleClose">
 
       <el-form label-width="100px" :model="ruleFrom" :rules="rules" ref="fromIns">
