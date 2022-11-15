@@ -2,8 +2,8 @@ const homeRoutes = [{
     path: '',
     redirect: '/home/introduce'
 }, {
-    path: "introduce",
-    name: "introduce",
+    path: "/home/introduce",
+    name: "/home/introduce",
     meta: {
         title: "系统介绍",
         role: "PMC001",
@@ -12,8 +12,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Dashboard/Introduce.vue"),
 }, {
-    path: "controlpanel",
-    name: "controlpanel",
+    path: "/home/controlpanel",
+    name: "/home/controlpanel",
     meta: {
         title: "Dashboard",
         role: "PMC001",
@@ -22,8 +22,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Dashboard/ControlPanel.vue"),
 }, {
-    path: "add",
-    name: "add",
+    path: "/home/add",
+    name: "/home/add",
     meta: {
         title: "添加商品",
         role: "PMC001",
@@ -32,48 +32,66 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Dashboard/Add.vue"),
 }, {
-    path: "classification",
-    name: "classification",
+    path: "/home/classification",
+    name: "/home/classification",
     meta: {
         title: "分类管理",
         role: "PMF200",
         icon: "el-icon-tickets",
-        submenu: false,
+        submenu3: true,
     },
     component: () => import("@/views/model/ClassiFication.vue"),
 }, {
-    path: "goodsmanager",
-    name: "goodsmanager",
+    path: "/home/classification/level2",
+    name: "/home/classification/level2",
+    meta: {
+        title: "分类二级管理",
+        icon: "el-icon-tickets",
+        categoryLevel: 2,
+    },
+    component: () => import("@/views/model/ClassiFication2.vue"),
+}, {
+    path: "/home/classification/level3",
+    name: "/home/classification/level3",
+    meta: {
+        title: "分类三级管理",
+        icon: "el-icon-tickets",
+        categoryLevel: 3,
+    },
+    component: () => import("@/views/model/ClassiFication3.vue"),
+}, {
+    path: "/home/goodsmanager",
+    name: "/home/goodsmanager",
     meta: {
         title: "商品管理",
         role: "PMG300",
         icon: "el-icon-shopping-cart-full",
-        submenu: false,
+        submenu3: true,
     },
     component: () => import("@/views/model/GoodsManager.vue"),
 }, {
-    path: "membermanager",
-    name: "membermanager",
+    path: "/home/membermanager",
+    name: "/home/membermanager",
     meta: {
         title: "会员管理",
         role: "PMM400",
         icon: "el-icon-user",
-        submenu: false,
+        submenu3: true,
     },
     component: () => import("@/views/model/MemberManager.vue"),
 }, {
-    path: "ordermanager",
-    name: "ordermanager",
+    path: "/home/ordermanager",
+    name: "/home/ordermanager",
     meta: {
         title: "订单管理",
         role: "PMR500",
         icon: "el-icon-s-order",
-        submenu: false,
+        submenu3: true,
     },
     component: () => import("@/views/model/OrderManager.vue"),
 }, {
-    path: "bannersetting",
-    name: "bannersetting",
+    path: "/home/bannersetting",
+    name: "/home/bannersetting",
     meta: {
         title: "轮播图设置",
         role: "PMH100",
@@ -82,8 +100,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Home/BannerSetting.vue"),
 }, {
-    path: "goodssetting",
-    name: "goodssetting",
+    path: "/home/goodssetting",
+    name: "/home/goodssetting",
     meta: {
         title: "热销商品设置",
         role: "PMH100",
@@ -92,8 +110,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Home/GoodsSetting.vue"),
 }, {
-    path: "productsetting",
-    name: "productsetting",
+    path: "/home/productsetting",
+    name: "/home/productsetting",
     meta: {
         title: "新品上线设置",
         role: "PMH100",
@@ -102,8 +120,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Home/ProductSetting.vue"),
 }, {
-    path: "recommendsetting",
-    name: "recommendsetting",
+    path: "/home/recommendsetting",
+    name: "/home/recommendsetting",
     meta: {
         title: "为你推荐设置",
         role: "PMH100",
@@ -112,8 +130,8 @@ const homeRoutes = [{
     },
     component: () => import("@/views/Home/RecommendSetting.vue"),
 }, {
-    path: "account",
-    name: "account",
+    path: "/home/account",
+    name: "/home/account",
     meta: {
         title: "修改密码",
         role: "PMH100",

@@ -78,7 +78,11 @@ export default {
           primary2.push(item);
           return;
         }
-        primary.push(item);
+        if (item.meta.submenu3) {
+          primary.push(item);
+          return;
+        }
+
       });
 
       return {

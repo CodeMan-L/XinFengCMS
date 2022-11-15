@@ -39,10 +39,27 @@ const addClassify = (data) => {
     return http.post('/categories', data)
 }
 
+
+/* 商品管理模块接口 */
+//获取商品列表信息
+const queryGoodsList = (pageNumber = 1, pageSize = 10) => {
+    return http.get('/goods/list', {
+        params: {
+            pageNumber,
+            pageSize
+        }
+    })
+}
+
+
+
 export default {
+    //分类管理模块
     queryList,
     removeClassify,
     classifyInfo,
     updataClassify,
-    addClassify
+    addClassify,
+    //商品管理模块
+    queryGoodsList
 }
