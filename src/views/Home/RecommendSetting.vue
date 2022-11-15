@@ -98,10 +98,10 @@ export default {
         configRank: ""
       },
       rules: {
-        configName: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        redirectUrl: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        goodsId: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
-        configRank: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
+        configName: [{ required: true, message: '商品名称不能为空', trigger: 'blur' }],
+        redirectUrl: [{ required: true, message: '跳转链接不能为空', trigger: 'blur' }],
+        goodsId: [{ required: true, message: '商品编号不能为空', trigger: 'blur' }],
+        configRank: [{ required: true, message: '排序值不能为空', trigger: 'blur' }],
       }
     }
   },

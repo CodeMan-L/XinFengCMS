@@ -154,13 +154,13 @@ export default {
         return;
       }
       try {
-        let { resultCode } = await this.$api.GoodsSetting.removeGood(ids);
+        let { resultCode, message } = await this.$api.GoodsSetting.removeGood(ids);
 
         if (+resultCode === 200) {
           this.$message.success('恭喜您，删除成功！');
           this.init();
         } else {
-          this.$message.error('删除失败，请稍后再试！');
+          this.$message.error(message);
         }
       } catch (_) {
         console.log('错误：', _);
@@ -216,14 +216,14 @@ export default {
         }
         data.configType = 3;
         console.log(data);
-        let { resultCode } = await fun(data)
+        let { resultCode, message } = await fun(data)
         if (+resultCode === 200) {
           this.handleClose();
           this.$message.success('恭喜您，操作成功！');
           this.init();
           return;
         } else {
-          this.$message.error('操作失败，请稍后再试！');
+          this.$message.error(message);
         }
       } catch (_) {
         console.log('错误：', _);
