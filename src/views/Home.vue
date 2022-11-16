@@ -27,7 +27,7 @@
         <router-view />
       </div>
       <div class="footer">
-        <div class="footer-left">Copyright © 2019-2021 十三. All rights reserved.</div>
+        <div class="footer-left">Copyright © 2019-2021 {{ profile && profile.nickName }}. All rights reserved.</div>
         <a href="https://github.com/newbee-ltd/vue3-admin" target="_blank">vue3-admin Version 3.0.0</a>
       </div>
     </div>
@@ -199,6 +199,8 @@ export default {
     padding: 0 20px;
     width: 100%;
     height: 50px;
+    background-color: #fff;
+    z-index: 999;
     border-top: 1px solid #e9e9e9;
 
     .footer-left {
