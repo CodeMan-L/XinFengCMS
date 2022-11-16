@@ -178,6 +178,8 @@ export default {
     padding: 0 20px;
     width: 100%;
     height: 50px;
+    background-color: #fff;
+    z-index: 999;
     border-top: 1px solid #e9e9e9;
 
     .footer-left {
