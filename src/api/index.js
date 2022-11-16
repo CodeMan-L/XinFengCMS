@@ -2,6 +2,9 @@ import http from "./http";
 import carousels from "./carousels";
 import dashboard from "./dashboard";
 import system from "./system";
+import model from "./model";
+import GoodsSetting from "./GoodsSetting";
+import ProductSetting from "./ProductSetting";
 
 //登录接口
 const adminLogin = (userName, passwordMd5) => {
@@ -31,5 +34,8 @@ const api = {
     carousels,
     dashboard,
     system
+    model,
+    GoodsSetting,
+    ProductSetting,
 };
 export default api;

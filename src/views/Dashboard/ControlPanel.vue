@@ -1,9 +1,11 @@
 <template>
   <div class="contain">
     <div class="order">
-      <div class="order-item" v-for="(item, index) in ['今日订单数', '今日日活', '转化率']" :key="index">
-        <p>{{ item }}</p>
-        <p>1888</p>
+      <div class="order-item" v-for="(item, index) in [{
+        'title': '今日订单数', 'value': '1888'
+      }, { 'title': '今日日活', 'value': '36271' }, { 'title': '转化率', 'value': '20%' }]" :key="index">
+        <p>{{ item.title }}</p>
+        <p>{{ item.value }}</p>
       </div>
     </div>
     <div class="control-panel">
@@ -27,9 +29,9 @@ export default {
   mounted() {
     this.line();
   },
-  created() {
-    this.init()
-  },
+  // created() {
+  //   this.init()
+  // },
   methods: {
     line() {
       let mychar = echarts.init(this.$refs.boxOne);
@@ -130,18 +132,18 @@ export default {
         ]
       });
     },
-    async init() {
-      try {
-        console.log(2222222);
-        let { Code } = await this.$api.dashboard.queryData(this.sentry_version, this.sentry_key);
-        if (+Code === 200) {
-          console.log(1111111111);
-          return;
-        }
-      } catch (_) {
-        console.log('错误:', _);
-      }
-    }
+    // async init() {
+    //   try {
+    //     console.log(2222222);
+    //     let { Code } = await this.$api.dashboard.queryData(this.sentry_version, this.sentry_key);
+    //     if (+Code === 200) {
+    //       console.log(1111111111);
+    //       return;
+    //     }
+    //   } catch (_) {
+    //     console.log('错误:', _);
+    //   }
+    // }
   }
 };
 </script>
