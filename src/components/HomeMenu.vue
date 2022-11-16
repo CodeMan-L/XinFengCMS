@@ -1,54 +1,56 @@
 <template>
   <div class="home-menu">
-    <el-menu router :default-active="$route.name" text-color="#fff" active-text-color="#409eff"
-      background-color="#222832">
+    <el-scrollbar class="assideScroll">
+      <el-menu router :default-active="$route.name" text-color="#fff" active-text-color="#409eff"
+        background-color="#222832">
 
-      <el-submenu index="submenu1">
-        <template #title>
-          <i class="el-icon-odometer"></i>
-          <span>Dashboard</span>
-        </template>
-        <el-menu-item v-for="item in routes.primary1" :key="item.name" :index="item.name">
-          <i :class="item.meta.icon"></i>
-          <span slot="title">{{ item.meta.title }}</span>
-        </el-menu-item>
-      </el-submenu>
+        <el-submenu index="submenu1">
+          <template #title>
+            <i class="el-icon-odometer"></i>
+            <span>Dashboard</span>
+          </template>
+          <el-menu-item v-for="item in routes.primary1" :key="item.name" :index="item.name">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{ item.meta.title }}</span>
+          </el-menu-item>
+        </el-submenu>
 
-      <el-submenu index="submenu">
-        <template #title>
-          <i class="el-icon-s-home"></i>
-          <span>首页配置</span>
-        </template>
-        <el-menu-item v-for="item in routes.secondary" :key="item.name" :index="item.name">
-          <i :class="item.meta.icon"></i>
-          <span slot="title">{{ item.meta.title }}</span>
-        </el-menu-item>
-      </el-submenu>
+        <el-submenu index="submenu">
+          <template #title>
+            <i class="el-icon-s-home"></i>
+            <span>首页配置</span>
+          </template>
+          <el-menu-item v-for="item in routes.secondary" :key="item.name" :index="item.name">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{ item.meta.title }}</span>
+          </el-menu-item>
+        </el-submenu>
 
-      <el-submenu index="">
-        <template #title>
-          <i class="el-icon-menu"></i>
-          <span>模块管理</span>
-        </template>
-        <el-menu-item v-for="item in routes.primary" :key="item.name" :index="item.name">
-          <i :class="item.meta.icon"></i>
-          <span slot="title">{{ item.meta.title }}</span>
-        </el-menu-item>
-      </el-submenu>
+        <el-submenu index="">
+          <template #title>
+            <i class="el-icon-menu"></i>
+            <span>模块管理</span>
+          </template>
+          <el-menu-item v-for="item in routes.primary" :key="item.name" :index="item.name">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{ item.meta.title }}</span>
+          </el-menu-item>
+        </el-submenu>
 
-      <el-submenu index="submenu2">
-        <template #title>
-          <i class="el-icon-s-tools"></i>
-          <span>系统管理</span>
-        </template>
-        <el-menu-item v-for="item in routes.primary2" :key="item.name" :index="item.name">
-          <i :class="item.meta.icon"></i>
-          <span slot="title">{{ item.meta.title }}</span>
-        </el-menu-item>
+        <el-submenu index="submenu2">
+          <template #title>
+            <i class="el-icon-s-tools"></i>
+            <span>系统管理</span>
+          </template>
+          <el-menu-item v-for="item in routes.primary2" :key="item.name" :index="item.name">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{ item.meta.title }}</span>
+          </el-menu-item>
 
-      </el-submenu>
+        </el-submenu>
 
-    </el-menu>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -97,7 +99,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-menu {
-  border-right: none;
+.home-menu {
+  height: 100%;
+
+  .el-menu {
+    border-right: none;
+  }
+
+  /deep/.el-scrollbar__bar.is-vertical>div {
+    width: 0;
+  }
+
+  /deep/.assideScroll {
+    height: 96%;
+  }
 }
 </style>

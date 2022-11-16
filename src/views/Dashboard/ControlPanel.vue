@@ -1,11 +1,11 @@
 <template>
   <div class="contain">
     <div class="order">
-      <div class="order-item" v-for="(item, index) in [{
-        'title': '今日订单数', 'value': '1888'
-      }, { 'title': '今日日活', 'value': '36271' }, { 'title': '转化率', 'value': '20%' }]" :key="index">
-        <p>{{ item.title }}</p>
-        <p>{{ item.value }}</p>
+      <div class="order-item"
+        v-for="(item, index) in [{ name: '今日订单数', num: 1888 }, { name: '今日日活', num: 36271 }, { name: '转化率', num: '20%' }]"
+        :key="index">
+        <p>{{ item.name }}</p>
+        <p>{{ item.num }}</p>
       </div>
     </div>
     <div class="control-panel">

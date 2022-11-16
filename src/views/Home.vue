@@ -81,7 +81,7 @@ export default {
     width: 200px;
     height: 100%;
     background: #222832;
-    overflow: hidden;
+
   }
 
   .content {
