@@ -7,7 +7,11 @@
 
     <div class="content">
       <div class="top">
-        <div class="nav">{{ $route.meta.title }}</div>
+        <div class="nav">
+          <i class="el-icon-back" v-if="$route.meta.categoryLevel ? true : false"
+            @click="handleChange($route.meta.categoryLevel)"></i>
+          {{ $route.meta.title }}
+        </div>
         <div class="info">
           <i class="el-icon-user-solid"></i>
           {{ profile && profile.nickName }}
@@ -48,6 +52,14 @@ export default {
       this.$message.success('您已安全退出！');
       this.setProfile(null);
       this.$router.push("/login");
+    },
+    handleChange(num) {
+      if (num === 2) {
+        console.log(111);
+        this.$router.replace('/home/classification');
+        return;
+      }
+      this.$router.back();
     }
   },
 };
@@ -58,6 +70,8 @@ export default {
   position: relative;
   height: 100%;
   overflow: hidden;
+
+
 
   .menu {
     position: absolute;
@@ -110,6 +124,13 @@ export default {
 
     .nav {
       font-size: 20px;
+
+      .el-icon-back {
+        border: 1px solid #e9e9e9;
+        padding: 4px;
+        border-radius: 50px;
+        margin-right: 5px;
+      }
     }
 
     .info {

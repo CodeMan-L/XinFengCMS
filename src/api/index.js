@@ -1,6 +1,7 @@
 import http from "./http";
 import carousels from "./carousels";
 import dashboard from "./dashboard";
+import model from "./model";
 import GoodsSetting from "./GoodsSetting";
 import ProductSetting from "./ProductSetting";
 
@@ -31,7 +32,8 @@ const api = {
     adminProfile,
     carousels,
     dashboard,
+    model,
     GoodsSetting,
-    ProductSetting
+    ProductSetting,
 };
 export default api;
