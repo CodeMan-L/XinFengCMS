@@ -24,8 +24,7 @@
 
         <template v-slot="{ row }">
           <el-link type="primary" @click="handleUpdate(row)">修改</el-link>
-          <el-link type="primary" @click="nextClassify(row)">
-            下级分类</el-link>
+          <el-link type="primary" @click="nextClassify(row)">下级分类</el-link>
 
           <el-popconfirm title="确定删除吗？" @confirm="handleRemove(row.categoryId)">
             <el-link type="danger" slot="reference">删除</el-link>
@@ -61,6 +60,7 @@
       </span>
     </el-dialog>
   </div>
+
 </template>
 
 <script>
@@ -92,13 +92,26 @@ export default {
       }
     }
   },
+  props: {
+    parentsId: {
+      type: Number,
+      default: 0,
+    },
+    categoryLevels: {
+      type: Number,
+      default: 1,
+    }
+  },
   created() {
-    this.init();
+    this.parentId = this.$route.query.parentsId;
+    this.categoryLevel = this.$route.query.categoryLevels;
+    this.init(this.currentPage, this.pageSize, this.categoryLevel, this.parentId);
   },
   methods: {
     /* 关于table表格的 */
     //获取数据
     async init(currentPage, pageSize, categoryLevel, parentId) {
+
       this.tableLoading = true;
       currentPage = this.currentPage;
       try {
@@ -164,8 +177,8 @@ export default {
         return;
       }
       this.$router.push({
-        path: '/home/classification/level2',
-        name: '/home/classification/level2',
+        path: '/home/classification/level3',
+        name: '/home/classification/level3',
         query: {
           parentsId: row.categoryId,
           categoryLevels: row.categoryLevel + 1

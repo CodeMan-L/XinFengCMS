@@ -24,8 +24,7 @@
 
         <template v-slot="{ row }">
           <el-link type="primary" @click="handleUpdate(row)">修改</el-link>
-          <el-link type="primary" @click="nextClassify(row)">
-            下级分类</el-link>
+          <el-link type="primary" @click="nextClassify(row)">下级分类</el-link>
 
           <el-popconfirm title="确定删除吗？" @confirm="handleRemove(row.categoryId)">
             <el-link type="danger" slot="reference">删除</el-link>
@@ -93,7 +92,9 @@ export default {
     }
   },
   created() {
-    this.init();
+    this.parentId = this.$route.query.parentsId;
+    this.categoryLevel = this.$route.query.categoryLevels;
+    this.init(this.currentPage, this.pageSize, this.categoryLevel, this.parentId);
   },
   methods: {
     /* 关于table表格的 */
@@ -159,18 +160,12 @@ export default {
     },
     //下级分类
     nextClassify(row) {
+
       if (row.categoryLevel >= 3) {
         this.$message.error('没有下一级！');
         return;
       }
-      this.$router.push({
-        path: '/home/classification/level2',
-        name: '/home/classification/level2',
-        query: {
-          parentsId: row.categoryId,
-          categoryLevels: row.categoryLevel + 1
-        }
-      })
+      this.init(row.currentPage, row.pageSize, row.categoryLevel, row.parentId);
     },
     //点击修改
     async handleUpdate(row) {

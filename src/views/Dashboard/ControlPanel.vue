@@ -29,9 +29,9 @@ export default {
   mounted() {
     this.line();
   },
-  created() {
-    this.init()
-  },
+  // created() {
+  //   this.init()
+  // },
   methods: {
     line() {
       let mychar = echarts.init(this.$refs.boxOne);
@@ -132,18 +132,18 @@ export default {
         ]
       });
     },
-    async init() {
-      try {
-        console.log(2222222);
-        let { Code } = await this.$api.dashboard.queryData(this.sentry_version, this.sentry_key);
-        if (+Code === 200) {
-          console.log(1111111111);
-          return;
-        }
-      } catch (_) {
-        console.log('错误:', _);
-      }
-    }
+    // async init() {
+    //   try {
+    //     console.log(2222222);
+    //     let { Code } = await this.$api.dashboard.queryData(this.sentry_version, this.sentry_key);
+    //     if (+Code === 200) {
+    //       console.log(1111111111);
+    //       return;
+    //     }
+    //   } catch (_) {
+    //     console.log('错误:', _);
+    //   }
+    // }
   }
 };
 </script>

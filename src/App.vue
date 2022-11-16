@@ -17,8 +17,7 @@ body,
   overflow: hidden;
 }
 
-.el-input__inner,
-.el-button {
+.el-input__inner {
   border-radius: 0 !important;
 }
 </style>
