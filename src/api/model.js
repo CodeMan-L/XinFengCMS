@@ -90,6 +90,28 @@ const queryOrderList = (pageNumber = 1, pageSize = 10, orderNo, orderStatus) => 
         }
     })
 }
+//关闭订单
+const colseOrder = (ids) => {
+    return http.put('/orders/close', {
+        ids
+    })
+}
+//配货完成
+const OrderSuccess = (ids) => {
+    return http.put('/orders/checkDone', {
+        ids
+    })
+}
+//出库
+const checkOut = (ids) => {
+    return http.put('/orders/checkOut', {
+        ids
+    })
+}
+//订单详情
+const orderInfo = (id) => {
+    return http.get(`/orders/${id}`)
+}
 
 export default {
     //分类管理模块
@@ -107,4 +129,8 @@ export default {
     disableAccount,
     //订单管理模块
     queryOrderList,
+    colseOrder,
+    OrderSuccess,
+    checkOut,
+    orderInfo,
 }

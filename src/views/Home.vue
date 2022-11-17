@@ -10,6 +10,7 @@
         <div class="nav">
           <i class="el-icon-back" v-if="$route.meta.categoryLevel ? true : false"
             @click="handleChange($route.meta.categoryLevel)"></i>
+          <i class="el-icon-back" v-if="$route.meta.orderInfo ? true : false" @click="handleInfo"></i>
           {{ $route.meta.title }}
         </div>
         <div class="info">
@@ -55,12 +56,14 @@ export default {
     },
     handleChange(num) {
       if (num === 2) {
-        console.log(111);
         this.$router.replace('/home/classification');
         return;
       }
       this.$router.back();
-    }
+    },
+    handleInfo() {
+      this.$router.back();
+    },
   },
 };
 </script>

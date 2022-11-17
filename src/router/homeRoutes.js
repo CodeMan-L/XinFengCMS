@@ -90,6 +90,16 @@ const homeRoutes = [{
     },
     component: () => import("@/views/model/OrderManager.vue"),
 }, {
+    path: "/home/order_detail",
+    name: "/home/order_detail",
+    meta: {
+        title: "订单详情",
+        role: "PMR500",
+        orderInfo: true,
+        icon: "el-icon-tickets",
+    },
+    component: () => import("@/views/model/Order_detail.vue"),
+}, {
     path: "/home/bannersetting",
     name: "/home/bannersetting",
     meta: {
