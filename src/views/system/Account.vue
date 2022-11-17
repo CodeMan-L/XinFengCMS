@@ -75,13 +75,13 @@ export default {
         async submitName() {
             try {
                 await this.$refs.formIns.validate();
-                let { resultCode } = await this.$api.system.updateName(this.ruleForm.loginUserName, this.ruleForm.nickName);
+                let { resultCode, message } = await this.$api.system.updateName(this.ruleForm.loginUserName, this.ruleForm.nickName);
                 if (+resultCode === 200) {
                     this.$message.success('恭喜您，修改成功！');
                     this.init();
                     return;
                 }
-                this.$message.error('操作失败，请稍后再试！');
+                this.$message.error(message);
             } catch (_) {
                 console.log('错误：', _);
             }
@@ -91,13 +91,13 @@ export default {
         async submitPassword() {
             try {
                 await this.$refs.formIns2.validate();
-                let { resultCode } = await this.$api.system.updataPassword(this.ruleForm.newPassword, this.ruleForm.originalPassword);
+                let { resultCode, message } = await this.$api.system.updataPassword(this.ruleForm.newPassword, this.ruleForm.originalPassword);
                 if (+resultCode === 200) {
                     this.$message.success('恭喜您，修改成功！');
                     this.init();
                     return;
                 }
-                this.$message.error('操作失败，请稍后再试！');
+                this.$message.error(message);
             } catch (_) {
                 console.log('错误：', _);
             }
