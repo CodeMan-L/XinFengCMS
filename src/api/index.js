@@ -33,7 +33,7 @@ const api = {
     adminProfile,
     carousels,
     dashboard,
-    system
+    system,
     model,
     GoodsSetting,
     ProductSetting,

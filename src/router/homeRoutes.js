@@ -146,6 +146,8 @@ export default homeRoutes;
 /* 
  /home/controlpanel   控制面板
      /home/classification   分类管理
+     /home/classification/level2 分类二级管理
+     /home/classification/level3 分类三级管理
      /home/goodsmanager   商品管理
      /home/membermanager   会员管理
      /home/ordermanager   订单管理

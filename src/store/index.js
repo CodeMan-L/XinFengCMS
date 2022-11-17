@@ -14,14 +14,14 @@ if (env === 'development') {
 
 export default new Vuex.Store({
   state: {
-    profile: null
+    profile: null,
   },
   getters: {
   },
   mutations: {
     setProfile(state, info) {
       state.profile = info;
-    }
+    },
   },
   actions: {
     async setProfileAsync({ commit }) {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
         console.log('错误：', _);
       }
       return info;
-    }
+    },
   },
   plugins
 })

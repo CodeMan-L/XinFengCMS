@@ -139,7 +139,7 @@ export default {
         ids = this.selection.map(item => item.categoryId)
 
       }
-      console.log(ids);
+
       if (ids.length === 0) {
         this.$message.warning('请至少选择一项删除！');
         return;

@@ -1,105 +1,117 @@
 <template>
     <div class="Add">
-        <el-form ref="form" label-width="80px">
-
+        <el-form ref="fromIns" :rules="rules" :model="ruleFrom" label-width="80px">
             <el-form-item label="商品分类">
                 <div class="block">
-                    <el-cascader :props="props"></el-cascader>
+                    <el-cascader :props="props" v-model="tabVal"></el-cascader>
                 </div>
             </el-form-item>
-
-            <el-form-item label="商品名称">
-                <el-input placeholder="请输入商品名称"></el-input>
+            <el-form-item label="商品名称" prop="goodsName">
+                <el-input placeholder="请输入商品名称" v-model.trim="ruleFrom.goodsName"></el-input>
             </el-form-item>
-
             <el-form-item label="商品简介" prop="goodsIntro">
-                <el-input type="textarea" placeholder="请输入商品简介（100字）"></el-input>
+                <el-input type="textarea" placeholder="请输入商品简介（100字）" v-model.trim="ruleFrom.goodsIntro"></el-input>
             </el-form-item>
-
-            <el-form-item label="商品价格" prop="goodsName">
-                <el-input-number controls-position="right" :min="0" v-model="num" placeholder="请输入商品价格">
+            <el-form-item label="商品价格" prop="originalPrice">
+                <el-input-number controls-position="right" :min="0" v-model="num" placeholder="请输入商品价格"
+                    v-model.trim="ruleFrom.originalPrice">
                 </el-input-number>
             </el-form-item>
-            <el-form-item label="商品售卖价" prop="originalPrice">
-                <el-input-number controls-position="right" placeholder="请输入商品售价" :min="0" v-model="num2">
+            <el-form-item label="商品售卖价" prop="sellingPrice">
+                <el-input-number controls-position="right" placeholder="请输入商品售价" :min="0" v-model="num2"
+                    v-model.trim="ruleFrom.sellingPrice">
                 </el-input-number>
             </el-form-item>
-            <el-form-item label="商品库存">
-                <el-input-number controls-position="right" :min="0" placeholder="请输入商品库存" v-model="num3">
+            <el-form-item label="商品库存" prop="stockNum">
+                <el-input-number controls-position="right" :min="0" placeholder="请输入商品库存" v-model="num3"
+                    v-model.trim="ruleFrom.stockNum">
                 </el-input-number>
             </el-form-item>
-            <el-form-item label="商品标签">
-                <el-input placeholder="请输入商品小标签"></el-input>
+            <el-form-item label="商品标签" prop="tag">
+                <el-input placeholder="请输入商品小标签" v-model.trim="ruleFrom.tag"></el-input>
             </el-form-item>
-            <el-form-item label="上架状态">
+            <el-form-item label="上架状态" prop="goodsSellStatus">
                 <template>
-                    <el-radio-group v-model="radio">
-                        <el-radio :label="3">上架</el-radio>
-                        <el-radio :label="6">下架</el-radio>
+                    <el-radio-group v-model.trim="ruleFrom.goodsSellStatus">
+                        <el-radio :label="0">上架</el-radio>
+                        <el-radio :label="1">下架</el-radio>
                     </el-radio-group>
                 </template>
             </el-form-item>
 
-            <el-form-item label="商品主图">
-                <el-upload action="#" list-type="picture-card" :auto-upload="false" :limit="1"
-                    v-show="flag ? true : false">
-                    <i slot="default" class="el-icon-plus"></i>
-                    <div slot="file" slot-scope="{file}">
-                        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-                        <span class="el-upload-list__item-actions">
-                            <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-                                <i class="el-icon-zoom-in"></i>
-                            </span>
-                            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
-                                <i class="el-icon-download"></i>
-                            </span>
-                            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
-                                <i class="el-icon-delete"></i>
-                            </span>
-                        </span>
-                    </div>
+            <el-form-item label="商品主图" prop="goodsCoverImg">
+                <el-upload class="avatar-uploader" action="" accept=".jpg,.jpeg,.png,.gif" :show-file-list="false"
+                    :multiple="false" :http-request="uploadImg">
+
+                    <img v-if="ruleFrom.goodsCoverImg" :src="ruleFrom.goodsCoverImg" class="avatar-uploader-img"
+                        alt="" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <el-dialog :visible.sync="dialogVisible">
                     <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
             </el-form-item>
 
-            <el-form-item label="详情内容">
+            <el-form-item label="详情内容" prop="goodsDetailContent">
                 <div class="editor-container">
 
-                    <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="content">
+                    <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded"
+                        v-model.trim="ruleFrom.goodsDetailContent">
+                        <!-- <img v-if="file.url" :src="file.url" class="avatar-uploader-img" alt="" /> -->
                     </vue-editor>
-                    <el-button type="primary" @click="submit">立即创建</el-button>
                 </div>
-
             </el-form-item>
+            <el-button type="primary" @click="submit">立即创建</el-button>
         </el-form>
     </div>
 </template>
    
 <script>
 import { VueEditor } from "vue2-editor/dist/vue2-editor.core.js";
+
 export default {
     name: "Add",
     data() {
         let that = this;
         return {
-            radio: 3,
+            radio: 0,
             dialogImageUrl: '',
             dialogVisible: false,
             disabled: false,
             content: '请输入正文',
             flag: true,
+            //计数器
             num: 0,
             num2: 0,
             num3: 0,
+            ruleFrom: {
+                goodsIntro: "",
+                goodsName: "",
+                originalPrice: "",
+                sellingPrice: "",
+                stockNum: "",
+                tag: "",
+                goodsSellStatus: "",
+                goodsCoverImg: "",
+                goodsDetailContent: "",
+            },
+            goodsCategoryId: null,
+            goodsId: null,
+            tabVal: [],
+            rules: {
+                goodsName: [{ required: true, message: '请填写商品名称', trigger: 'blur' }],
+                originalPrice: [{ required: true, message: '请填写商品价格', trigger: 'blur' }],
+                sellingPrice: [{ required: true, message: '请填写商品售价', trigger: 'blur' }],
+                stockNum: [{ required: true, message: '请填写商品库存', trigger: 'blur' }],
+                goodsCoverImg: [{ required: true, message: '请上传主图', trigger: 'blur' }],
+            },
             options: [],
             props: {
                 lazy: true,
                 async lazyLoad(node, resolve) {
                     const { level } = node;
                     try {
-                        let { resultCode, data } = await that.$api.dashboard.queryGoodsClassify(1, 1000, node.level + 1, node.value)
+                        let { resultCode, data } = await that.$api.dashboard.queryGoodsClassify(1, 1000, node.level + 1, node.value);
 
                         if (+resultCode === 200) {
                             that.options = data.list;
@@ -121,27 +133,88 @@ export default {
 
         };
     },
+    props: {
+        id: {
+            type: Number,
+            default: 0,
+        }
+    },
     async created() {
+        let ids = this.$route.query.id
+        if (ids) {
+            this.init(ids);
+        }
+
     },
     methods: {
+        async init(ids) {
+            try {
+                let { resultCode, data } = await this.$api.model.queryGoodsInfo(ids);
+                if (+resultCode === 200) {
+                    let { goods } = data;
+                    this.goodsCategoryId = goods.goodsCategoryId;
+                    this.goodsId = goods.goodsId;
+                    this.ruleFrom = goods;
+                    this.tabVal.push(data.firstCategory.categoryId)
+                    this.tabVal.push(data.secondCategory.categoryId)
+                    this.tabVal.push(data.thirdCategory.categoryId)
+                } else {
+                    this.$message.error('获取失败！')
+                }
+            } catch (_) {
+                console.log('错误：', _);
+            }
+        },
         /* 上传图片相关的 */
         handleRemove(file) {
             this.dialogImageUrl = '';
         },
-        handlePictureCardPreview(file) {
-            this.flag = false;
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
-        },
-        handleDownload(file) {
-            // console.log(file);
-        },
+        async uploadImg({ file }) {
+            try {
 
+                let { resultCode, data } = await this.$api.upload(file);
+                if (+resultCode === 200) {
+                    this.ruleFrom.goodsCoverImg = data;
+                    return;
+                }
+            } catch (_) {
+                console.log('错误：', _);
+            }
+            this.$message.error('图片上传失败，请稍后再试！');
+        },
         handleImageAdded() {
-            // console.log('upload image');
+            this.uploadImg();
         },
-        submit() {
+        async submit() {
+            await this.$refs.fromIns.validate();
+            try {
+                //添加商品
+                let fun = await this.$api.dashboard.addGoods;
 
+                let data = { ...this.ruleFrom },
+                    arr = this.tabVal;
+
+                data.goodsCategoryId = arr[arr.length - 1];
+                console.log(data.goodsCategoryId);
+                //修改商品
+                if (this.goodsId) {
+                    fun = await this.$api.dashboard.upGoods;
+                    data.goodsCategoryId = this.goodsCategoryId;
+                    data.goodsId = this.goodsId;
+                }
+
+                let { resultCode, message } = await fun(data)
+                if (+resultCode === 200) {
+                    this.$message.success('恭喜您，操作成功！');
+                    this.$router.push('/home/goodsmanager');
+                    return;
+                } else {
+                    this.$message.error(message);
+                }
+
+            } catch (_) {
+                console.log('错误：', _);
+            }
         }
     },
     components: {
@@ -172,7 +245,6 @@ export default {
 
     :deep(#editor) {
         height: 300px;
-        margin-bottom: 20px;
     }
 
     :deep(.el-form-item__label) {
@@ -197,6 +269,23 @@ export default {
 
     /deep/.el-input-number {
         width: 298px;
+    }
+
+    /deep/.el-button {
+        margin-left: 80px;
+    }
+
+    .avatar-uploader-icon,
+    .avatar-uploader-img {
+        display: block;
+        box-sizing: border-box;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        font-size: 24px;
+        color: #8c939d;
+        border: 1px dashed #d9d9d9;
+        cursor: pointer;
     }
 }
 </style>

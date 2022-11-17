@@ -4,16 +4,16 @@
   <div class="goods-manager">
     <!-- 操控区 -->
     <div class="handler-box">
-      <el-button type="primary" icon="el-icon-plus" size="small" @click="dialogVisible = true">
+      <el-button type="primary" icon="el-icon-plus" size="small" @click="handelAdd">
         新增商品
       </el-button>
     </div>
 
     <!-- 表格区 -->
-    <el-table :data="tableData" stripe style="width: 100%" @selection-change="selectionChange" :cell-style="cellStyle">
+    <el-table :data="tableData" stripe style="width: 100%" :cell-style="cellStyle" @selection-change="selectionChange">
       <el-table-column type="selection">
       </el-table-column>
-      <el-table-column prop="goodsId" label="商品编号" min-width="8%" align="center"></el-table-column>
+      <el-table-column prop="goodsId" label="商品编号" min-width="12%" align="center"></el-table-column>
       <el-table-column prop="goodsName" label="商品名" min-width="12%" align="center"></el-table-column>
 
       <el-table-column prop="goodsIntro" label="商品简介" min-width="12%"></el-table-column>
@@ -21,7 +21,7 @@
       <el-table-column label="商品图片" min-width="12%">
         <template v-slot="{ row }">
           <el-image :src="row.goodsCoverImg" :preview-src-list="[
-            row.carouselUrl,
+            row.goodsCoverImg,
           ]"></el-image>
         </template>
       </el-table-column>
@@ -33,7 +33,8 @@
         <!-- //:color=" '#32768' : '#5374207'" -->
         <template v-slot="{ row }">
           <el-link type="primary" @click="handleUpdate(row)">修改</el-link>
-          <el-link type="primary" slot="reference">{{ row.goodsSellStatus === 0 ? '下架' : '上架' }}</el-link>
+          <el-link type="primary" slot="reference" @click="upDown(row)">{{ row.goodsSellStatus === 0 ? '下架' : '上架' }}
+          </el-link>
 
         </template>
       </el-table-column>
@@ -46,8 +47,9 @@
 </template>
 
 <script>
+
 export default {
-  name: "classi-fication",
+
   data() {
     return {
       //关于表格区域的
@@ -100,6 +102,7 @@ export default {
 
       return row.goodsSellStatus === 0 ? '销售中' : '已下架';
     },
+    //上下架状态颜色
     cellStyle(row) {
       if (row.columnIndex !== 7) {
         return 'color:#000'
@@ -113,24 +116,41 @@ export default {
 
     },
     //点击修改
-    async handleUpdate(row) {
+    handleUpdate(row) {
       this.dialogVisible = true;
-      try {
-        let { resultCode, data } = await this.$api.model.classifyInfo(row.categoryId);
-        if (+resultCode === 200) {
-          this.ruleFrom = data;
-          this.categoryId = data.categoryId;
-          this.categoryLevel = data.categoryLevel;
-          this.parentId = data.parentId;
-          this.createTime = data.updateTime;
-          return;
+      this.$router.push({
+        path: '/home/add',
+        query: {
+          id: row.goodsId,
         }
-        this.$message.error('获取失败！')
+      })
+      this.dialogVisible = false;
+
+    },
+    //点击新增
+    handelAdd() {
+      this.$router.push('/home/add');
+    },
+
+    //点击上下架
+    async upDown(row) {
+      let ids = [];
+      if (row.goodsSellStatus === 0 || row.goodsSellStatus === 1) {
+        row.goodsSellStatus = row.goodsSellStatus === 0 ? 1 : 0;
+        ids.push(row.goodsId);
+      }
+      try {
+        let { resultCode, message } = await this.$api.model.upDown(row.goodsSellStatus, ids);
+        if (+resultCode === 200) {
+          this.$message.success('修改成功');
+          this.init();
+        } else {
+          this.$message.error(message);
+        }
       } catch (_) {
         console.log('错误：', _);
       }
     },
-
     selectionChange(val) {
       this.selection = val;
     },

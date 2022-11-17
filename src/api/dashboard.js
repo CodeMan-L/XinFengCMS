@@ -10,7 +10,7 @@ const queryData = (sentry_key, sentry_version) => {
 /* 
 添加商品模块接口
 */
-const addgoods = (data) => {
+const addGoods = (data) => {
     return http.post("/goods", data)
 }
 //获取商品分类
@@ -28,10 +28,15 @@ const queryGoodsClassify = (
         }
     })
 }
+//修改商品
+const upGoods = (data) => {
+    return http.put('/goods', data)
+}
 
 
 export default {
     queryData,
-    addgoods,
-    queryGoodsClassify
+    addGoods,
+    queryGoodsClassify,
+    upGoods,
 }
