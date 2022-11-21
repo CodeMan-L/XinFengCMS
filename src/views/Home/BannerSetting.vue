@@ -57,7 +57,7 @@
           <el-input v-model.trim="ruleFrom.redirectUrl"></el-input>
         </el-form-item>
         <el-form-item label="排序值" prop="carouselRank">
-          <el-input-number v-model.trim="ruleFrom.carouselRank"></el-input-number>
+          <el-input-number v-model.trim="ruleFrom.carouselRank" :min="0" :max="200"></el-input-number>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -267,13 +267,13 @@ export default {
   }
 
   .el-pagination {
-    position: absolute;
-    bottom: 0;
-    right: 0;
     z-index: 999;
     display: flex;
     align-items: center;
     height: 40px;
+    margin-top: 20px;
+    justify-content: center;
+    padding-bottom: 60px;
   }
 
   .el-table {
