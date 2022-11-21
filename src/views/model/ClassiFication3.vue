@@ -123,7 +123,7 @@ export default {
       this.currentPage = num;
       console.log();
 
-      this.init();
+      this.init(this.currentPage, this.pageSize, this.categoryLevel, this.parentId);
     },
     //时间格式化
     formatterTime(row) {
@@ -150,7 +150,7 @@ export default {
         console.log(resultCode);
         if (+resultCode === 200) {
           this.$message.success('恭喜您，删除成功！');
-          this.init();
+          this.init(this.currentPage, this.pageSize, this.categoryLevel, this.parentId);
         } else {
           this.$message.error('删除失败，请稍后再试！');
         }
@@ -222,7 +222,7 @@ export default {
         if (+resultCode === 200) {
           this.handleClose();
           this.$message.success('恭喜您，操作成功！');
-          this.init();
+          this.init(this.currentPage, this.pageSize, this.categoryLevel, this.parentId);
           return;
         } else {
           this.$message.error('操作失败，请稍后再试！');
